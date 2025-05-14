@@ -8,10 +8,12 @@ from google.cloud import storage, secretmanager, vision
 import os
 import tempfile
 
+
 init_db()  # 執行一次性初始化
 
 load_dotenv()  # 確保 Flask 啟動時能讀到 .env
 
+'''
 def test_vision_with_secret():
         
         # 初始化 Secret Manager 客戶端
@@ -41,10 +43,11 @@ def test_vision_with_secret():
         # 清理臨時檔案
         os.unlink(credentials_path)
         return True, print("API完成")
+'''
+        
+# 自動抓取 Render 環境變數設定的金鑰
 
-# 自動抓取環境變數設定的金鑰
-client = storage.Client()
-
+client = storage.Client.from_service_account_json('/etc/secrets/mysqlproject202505013')
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED = {'png', 'jpg', 'jpeg'}
 
